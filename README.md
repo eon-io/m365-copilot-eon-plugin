@@ -1,6 +1,6 @@
 # Eon Plugin for Microsoft 365 Copilot
 
-Connect Microsoft 365 Copilot to Eon. This Microsoft 365 app package bundles the Eon MCP server, an Eon agent for Copilot Chat, and a Microsoft 365 recovery skill for Copilot Cowork, so people can find and restore Microsoft 365 and cloud data from their Eon backups in a conversation.
+Connect Microsoft 365 Copilot to Eon. This Microsoft 365 app package connects Copilot to the Eon MCP server and adds an Eon agent for Copilot Chat and a Microsoft 365 recovery skill for Copilot Cowork, so people can find and restore Microsoft 365 and cloud data from their Eon backups in a conversation.
 
 ## Capabilities
 
@@ -13,6 +13,21 @@ Connect Microsoft 365 Copilot to Eon. This Microsoft 365 app package bundles the
 | Skill | Surface | Description |
 |-------|---------|-------------|
 | Microsoft 365 recovery | Copilot Cowork | Find lost or damaged emails, OneDrive files, SharePoint items, Teams conversations or a whole user in Eon backups and restore them under the user's confirmation, including recovery from the last snapshot with no ransomware findings. |
+
+## Tools
+
+The Eon agent in Copilot Chat uses these Eon MCP tools. Copilot runs the reads directly and asks the user to confirm each tool that changes state, with Eon's own confirmation text.
+
+| Reads (no confirmation) | Changes state (Copilot asks first) |
+|---|---|
+| `list_projects`, `list_resources`, `get_resource`, `list_resource_snapshots` | `restore_microsoft365_user_mail_by_entity` |
+| `list_saas_entities`, `list_saas_entity_snapshots` | `restore_microsoft365_user_drive_by_entity` |
+| `search_saas_user_mail`, `search_saas_user_drive`, `search_saas_shared_drive`, `search_saas_team` | `restore_microsoft365_share_point_site_by_entity` |
+| `list_restore_accounts`, `list_backup_jobs`, `list_restore_jobs`, `get_restore_job` | `restore_microsoft365_team_by_entity` |
+| `list_infected_snapshots`, `list_security_findings` | `restore_microsoft365_user_by_entity` |
+| `get_my_action_approval_request` | `take_snapshot`, `create_action_approval_request` |
+
+Copilot Cowork discovers the Eon MCP server's tools at runtime, so it also sees Eon's other tools, such as backup posture and compliance reports. Every tool runs with the signed-in user's Eon role.
 
 ## Try it
 
@@ -36,7 +51,7 @@ Requirements:
 
 ## MCP Server
 
-The plugin connects to `https://mcp.eon.io/mcp` over streamable HTTP. Copilot signs each user in to Eon through OAuth with PKCE (Eon login or the customer's own identity provider), so every tool call runs with that user's Eon role. Copilot asks for confirmation before any tool that changes state, such as a restore or a snapshot, and restores protected by multi-party approval wait for an administrator.
+The plugin connects to `https://mcp.eon.io/mcp` over streamable HTTP. Copilot signs each user in to Eon through OAuth with PKCE (Eon login or the customer's own identity provider), so every tool call runs with that user's Eon role. Copilot asks for confirmation before any tool that changes state, such as a restore or a snapshot, and restores protected by multi-party approval wait for an administrator. Backups stay in Eon: Copilot processes tool results only to answer the request in front of it.
 
 ## Building the package
 
@@ -70,7 +85,13 @@ The registration ID it produces goes to the build as `--oauth-config-id`; the so
 
 ### Updating the pinned tools
 
-`appPackage/mcp-tools.json` is a snapshot of the Eon MCP server's tool definitions for the functions listed in `appPackage/ai-plugin.json`. Eon maintainers refresh it from the Eon service source with `m365-copilot-plugin/export_tools.py`. To pin another tool, add its `functions` entry (with a `confirmation` and `ResourceStateUpdate` when it changes state) and its name to `run_for_functions`, refresh the snapshot, and run `--check`.
+`appPackage/mcp-tools.json` is a snapshot of the Eon MCP server's tool definitions for the functions listed in `appPackage/ai-plugin.json`. Eon maintainers refresh it from the Eon service source (`standalone-services/ai-agent` in `eon-io/eon-service`) whenever the server's tools change:
+
+```bash
+uv run --frozen python m365-copilot-plugin/export_tools.py --app-package <path to this repo>/appPackage
+```
+
+To pin another tool, add its `functions` entry (with a `confirmation` and `ResourceStateUpdate` when it changes state) and its name to `run_for_functions`, refresh the snapshot, and run `--check`.
 
 ### Testing in a tenant
 
@@ -79,7 +100,7 @@ The tenant needs Microsoft 365 Copilot licenses and custom app upload enabled.
 ```bash
 npm install -g @microsoft/m365agentstoolkit-cli
 atk auth login
-atk install --file-path build/eon-m365-copilot-1.0.0.zip --scope Personal
+atk install --file-path build/eon-m365-copilot-<version>.zip --scope Personal
 ```
 
 Then open `https://m365.cloud.microsoft/chat`, pick **Eon** under Agents, and run the prompts above.
