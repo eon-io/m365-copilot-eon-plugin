@@ -10,6 +10,7 @@
   "functions": [
     {
       "name": "list_projects",
+      "description": "Lists the Eon projects the signed-in user can access. Every other tool needs a project ID.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -20,6 +21,7 @@
     },
     {
       "name": "list_resources",
+      "description": "Lists the resources Eon protects in a project, including the Microsoft 365 tenant when includeSaas is true.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -30,6 +32,7 @@
     },
     {
       "name": "get_resource",
+      "description": "Gets one protected resource's details, including its backup status.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -40,6 +43,7 @@
     },
     {
       "name": "list_resource_snapshots",
+      "description": "Lists the snapshots of a protected resource.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -50,6 +54,7 @@
     },
     {
       "name": "list_saas_entities",
+      "description": "Lists the users, SharePoint sites and teams of a Microsoft 365 tenant resource.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -60,6 +65,7 @@
     },
     {
       "name": "list_saas_entity_snapshots",
+      "description": "Lists the snapshots that captured one Microsoft 365 user, site or team.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -70,6 +76,7 @@
     },
     {
       "name": "search_saas_user_mail",
+      "description": "Searches a user's mailbox in one snapshot and returns the matching messages.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -80,6 +87,7 @@
     },
     {
       "name": "search_saas_user_drive",
+      "description": "Searches a user's OneDrive in one snapshot and returns the matching files and folders.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -90,6 +98,7 @@
     },
     {
       "name": "search_saas_shared_drive",
+      "description": "Searches a SharePoint site's libraries in one snapshot and returns the matching files and folders.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -100,6 +109,7 @@
     },
     {
       "name": "search_saas_team",
+      "description": "Searches a Microsoft Teams team in one snapshot and returns the matching channels and conversations.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -110,6 +120,7 @@
     },
     {
       "name": "list_restore_accounts",
+      "description": "Lists the restore accounts that can run a restore, including the Microsoft 365 restore account.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -120,6 +131,7 @@
     },
     {
       "name": "list_backup_jobs",
+      "description": "Lists backup jobs with their status, to find failed or partial backups.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -130,6 +142,7 @@
     },
     {
       "name": "list_restore_jobs",
+      "description": "Lists restore jobs with their status.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -140,6 +153,7 @@
     },
     {
       "name": "get_restore_job",
+      "description": "Gets one restore job's status and details.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -150,6 +164,7 @@
     },
     {
       "name": "list_infected_snapshots",
+      "description": "Lists a resource's snapshots with ransomware or malware findings, to find the last clean recovery point.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -160,6 +175,7 @@
     },
     {
       "name": "list_security_findings",
+      "description": "Lists ransomware, malware and data anomaly findings across protected resources.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -170,6 +186,7 @@
     },
     {
       "name": "get_my_action_approval_request",
+      "description": "Gets the status of an approval request the signed-in user created.",
       "capabilities": {
         "security_info": {
           "data_handling": [
@@ -180,6 +197,7 @@
     },
     {
       "name": "restore_microsoft365_user_mail_by_entity",
+      "description": "Restores selected messages from a snapshot into a new folder in the user's mailbox.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
@@ -195,6 +213,7 @@
     },
     {
       "name": "restore_microsoft365_user_drive_by_entity",
+      "description": "Restores selected OneDrive items from a snapshot, overwriting items with the same path.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
@@ -210,6 +229,7 @@
     },
     {
       "name": "restore_microsoft365_share_point_site_by_entity",
+      "description": "Restores selected SharePoint items from a snapshot, overwriting items with the same path.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
@@ -225,6 +245,7 @@
     },
     {
       "name": "restore_microsoft365_team_by_entity",
+      "description": "Restores selected Microsoft Teams data from a snapshot.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
@@ -240,6 +261,7 @@
     },
     {
       "name": "restore_microsoft365_user_by_entity",
+      "description": "Restores a user's mailbox and OneDrive from a snapshot in one job.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
@@ -255,6 +277,7 @@
     },
     {
       "name": "take_snapshot",
+      "description": "Starts an on-demand snapshot of a protected resource.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
@@ -270,6 +293,7 @@
     },
     {
       "name": "create_action_approval_request",
+      "description": "Submits or discards an action approval request so administrators can review a restore.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
