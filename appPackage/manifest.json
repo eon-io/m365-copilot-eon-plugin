@@ -1,0 +1,54 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.0",
+  "id": "5d5b73c9-755d-4b7c-ab9d-db5b2e540217",
+  "developer": {
+    "name": "eon-io",
+    "websiteUrl": "https://www.eon.io",
+    "privacyUrl": "https://www.eon.io/privacy-policy",
+    "termsOfUseUrl": "https://www.eon.io/terms-of-use"
+  },
+  "name": {
+    "short": "Eon",
+    "full": "Eon backup and recovery"
+  },
+  "description": {
+    "short": "Find and restore Microsoft 365 and cloud data from Eon backups.",
+    "full": "Eon brings backup and recovery into Microsoft 365 Copilot. Ask in plain language to find a lost email, file, SharePoint site or Teams conversation in your Eon backups, pick the right point in time, and restore it. Eon also reports on backup and restore jobs, ransomware and malware findings in backups, and on-demand snapshots of AWS, Azure and Google Cloud resources protected by Eon.\n\nEvery action runs with your own Eon role. Copilot asks for your confirmation before any restore or snapshot, and restores that your organization protects with multi-party approval wait for an administrator to approve them. Every request is recorded in the Eon audit log.\n\nRequirements: an active Eon subscription with Microsoft 365 or cloud resources protected by Eon, an Eon user account, and a Microsoft 365 Copilot license."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#FE5C00",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "eonRecoveryAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "agentConnectors": [
+    {
+      "id": "eon-mcp",
+      "displayName": "Eon",
+      "description": "Eon backup and recovery tools: search protected Microsoft 365 data, list snapshots and jobs, review ransomware findings, and restore Microsoft 365 data or snapshot cloud resources.",
+      "toolSource": {
+        "remoteMcpServer": {
+          "mcpServerUrl": "${{EON_MCP_URL}}",
+          "authorization": {
+            "type": "OAuthPluginVault",
+            "referenceId": "${{EON_MCP_OAUTH_CONFIG_ID}}"
+          }
+        }
+      }
+    }
+  ],
+  "agentSkills": [
+    {
+      "folder": "./skills/m365-agentic-recovery"
+    }
+  ]
+}

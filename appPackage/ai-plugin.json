@@ -1,0 +1,328 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Eon",
+  "namespace": "eon",
+  "description_for_human": "Search Eon backups and restore Microsoft 365 and cloud data.",
+  "description_for_model": "Eon backup and recovery. These tools find Microsoft 365 users, SharePoint sites and teams protected by Eon, search their snapshots for emails and files, restore them, report on backup and restore jobs, list ransomware and malware findings in backups, and take on-demand snapshots of cloud resources.",
+  "legal_info_url": "https://www.eon.io/terms-of-use",
+  "privacy_policy_url": "https://www.eon.io/privacy-policy",
+  "functions": [
+    {
+      "name": "list_projects",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_resources",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_resource",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_resource_snapshots",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_saas_entities",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_saas_entity_snapshots",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "search_saas_user_mail",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "search_saas_user_drive",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "search_saas_shared_drive",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "search_saas_team",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_restore_accounts",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_backup_jobs",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_restore_jobs",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_restore_job",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_infected_snapshots",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "list_security_findings",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_my_action_approval_request",
+      "capabilities": {
+        "security_info": {
+          "data_handling": [
+            "GetPrivateData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "restore_microsoft365_user_mail_by_entity",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Restore mail",
+          "body": "Do you want to restore the selected mail from this Eon snapshot into a new folder in the mailbox?"
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "restore_microsoft365_user_drive_by_entity",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Restore OneDrive items",
+          "body": "Do you want to restore the selected OneDrive items from this Eon snapshot? Items with the same path are overwritten."
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "restore_microsoft365_share_point_site_by_entity",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Restore SharePoint items",
+          "body": "Do you want to restore the selected SharePoint items from this Eon snapshot? Items with the same path are overwritten."
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "restore_microsoft365_team_by_entity",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Restore Teams data",
+          "body": "Do you want to restore the selected Teams data from this Eon snapshot?"
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "restore_microsoft365_user_by_entity",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Restore user data",
+          "body": "Do you want to restore this user's Microsoft 365 data from this Eon snapshot?"
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "take_snapshot",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Take a snapshot",
+          "body": "Do you want Eon to take an on-demand snapshot of this resource now?"
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "create_action_approval_request",
+      "capabilities": {
+        "confirmation": {
+          "type": "AdaptiveCard",
+          "title": "Send for approval",
+          "body": "Do you want to send this Eon action request to the approvers?"
+        },
+        "security_info": {
+          "data_handling": [
+            "ResourceStateUpdate"
+          ]
+        }
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "OAuthPluginVault",
+        "reference_id": "${{EON_MCP_OAUTH_CONFIG_ID}}"
+      },
+      "run_for_functions": [
+        "list_projects",
+        "list_resources",
+        "get_resource",
+        "list_resource_snapshots",
+        "list_saas_entities",
+        "list_saas_entity_snapshots",
+        "search_saas_user_mail",
+        "search_saas_user_drive",
+        "search_saas_shared_drive",
+        "search_saas_team",
+        "list_restore_accounts",
+        "list_backup_jobs",
+        "list_restore_jobs",
+        "get_restore_job",
+        "list_infected_snapshots",
+        "list_security_findings",
+        "get_my_action_approval_request",
+        "restore_microsoft365_user_mail_by_entity",
+        "restore_microsoft365_user_drive_by_entity",
+        "restore_microsoft365_share_point_site_by_entity",
+        "restore_microsoft365_team_by_entity",
+        "restore_microsoft365_user_by_entity",
+        "take_snapshot",
+        "create_action_approval_request"
+      ],
+      "spec": {
+        "url": "${{EON_MCP_URL}}",
+        "mcp_tool_description": {
+          "file": "mcp-tools.json"
+        }
+      }
+    }
+  ]
+}
