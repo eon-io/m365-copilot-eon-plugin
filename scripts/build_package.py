@@ -41,6 +41,9 @@ def check() -> list[str]:
         errors.append(f"mcp-tools.json and ai-plugin.json disagree: {sorted(set(tools) ^ set(names))}")
     for function in plugin["functions"]:
         name, tool = function["name"], tools.get(function["name"])
+        # Optional in the plugin JSON schema, but Partner Center's package conversion rejects a function without one.
+        if not function.get("description", "").strip():
+            errors.append(f"{name}: function has no description")
         if tool is None:
             continue
         read_only = tool.get("annotations", {}).get("readOnlyHint")
