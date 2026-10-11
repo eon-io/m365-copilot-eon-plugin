@@ -44,6 +44,8 @@ The Eon agent starts with these prompts:
 
 Eon distributes the plugin through Microsoft Marketplace in the Microsoft 365 and Copilot program (listing coming soon). A Microsoft 365 administrator approves it once in the Microsoft 365 admin center, and users then find **Eon** under Agents in Copilot Chat and under **Sources & Skills > Plugins** in Copilot Cowork.
 
+A Microsoft 365 administrator can also add Eon by uploading the app package: download [`eon-m365-copilot.zip`](https://github.com/eon-io/m365-copilot-eon-plugin/releases/latest/download/eon-m365-copilot.zip) from the latest release, then upload it in the Microsoft 365 admin center under **Agents > All agents > Add agent**. See [Add the Eon agent for Microsoft 365 Copilot](https://docs.eon.io/data-protection/integrations/ai-integrations/add-ai-integrations/microsoft-365-copilot).
+
 Requirements:
 
 - A Microsoft 365 Copilot license.
@@ -62,7 +64,9 @@ python3 scripts/build_package.py --check
 python3 scripts/build_package.py --oauth-config-id <registration ID>
 ```
 
-The package lands in `build/eon-m365-copilot-<version>.zip`. `--check` fails when a state-changing tool lacks a confirmation, when `ai-plugin.json` and `mcp-tools.json` disagree, or when the app name differs across the manifest, the agent and the plugin. Add `--mcp-url https://mcp-testing.eon.io/mcp` with a testing registration ID for a testing build. Bump `version` in `appPackage/manifest.json` for every Partner Center resubmission.
+CI (`.github/workflows/app-package.yml`) runs `--check` and builds the production package on every pull request and every push to `main`, and attaches it to the run. A pull request that changes `appPackage/` must bump `version` in `appPackage/manifest.json`. Each new version that reaches `main` is published as a GitHub release `v<version>` with `eon-m365-copilot-<version>.zip` (for Partner Center) and `eon-m365-copilot.zip`, so `releases/latest/download/eon-m365-copilot.zip` always serves the newest package.
+
+Locally, the package lands in `build/eon-m365-copilot-<version>.zip`. `--check` fails when a state-changing tool lacks a confirmation, when `ai-plugin.json` and `mcp-tools.json` disagree, or when the app name differs across the manifest, the agent and the plugin. Add `--mcp-url https://mcp-testing.eon.io/mcp` with a testing registration ID for a testing build. Bump `version` in `appPackage/manifest.json` for every Partner Center resubmission.
 
 ### OAuth client registration
 
@@ -115,6 +119,7 @@ Then open `https://m365.cloud.microsoft/chat`, pick **Eon** under Agents, and ru
 | `appPackage/mcp-tools.json` | Snapshot of the pinned tools' definitions from the Eon MCP server |
 | `appPackage/skills/` | Agent Skills for Copilot Cowork |
 | `scripts/build_package.py` | Validation and packaging |
+| `.github/workflows/app-package.yml` | CI build and GitHub release of the package |
 
 ## Links
 
