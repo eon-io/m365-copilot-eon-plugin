@@ -1,0 +1,105 @@
+name: App package
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-package-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # Teams Developer Portal OAuth registration for https://mcp.eon.io. Not a secret: every
+  # released package carries it in manifest.json and ai-plugin.json.
+  EON_MCP_OAUTH_CONFIG_ID: MjZlOGFjNjEtOWI0Ny00NzQyLTlkMDktOTY0MDNjNDAyOGE4IyM4M2NkZDYyMS1hMDUzLTQ4ODQtYjZmNy03ZTMxNjE2OTFmZDI=
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Read the package version
+        id: version
+        run: echo "version=$(jq -r .version appPackage/manifest.json)" >> "$GITHUB_OUTPUT"
+
+      # A changed package with an unchanged version would never be released, and Microsoft 365
+      # treats an upload with an existing version as the same app.
+      - name: Require a version bump when appPackage changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet "$BASE_SHA" HEAD -- appPackage; then
+            exit 0
+          fi
+          base_version=$(git show "$BASE_SHA:appPackage/manifest.json" | jq -r .version)
+          if [[ "$base_version" == "$VERSION" ]]; then
+            echo "::error file=appPackage/manifest.json::appPackage changed, so bump \"version\" (still $VERSION)."
+            exit 1
+          fi
+
+      - name: Validate
+        run: python3 scripts/build_package.py --check
+
+      # The versioned name is for Partner Center; the fixed name keeps
+      # releases/latest/download/eon-m365-copilot.zip stable for the docs.
+      - name: Build
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          python3 scripts/build_package.py \
+            --oauth-config-id "$EON_MCP_OAUTH_CONFIG_ID" \
+            --out "build/eon-m365-copilot-$VERSION.zip"
+          cp "build/eon-m365-copilot-$VERSION.zip" build/eon-m365-copilot.zip
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: eon-m365-copilot-${{ steps.version.outputs.version }}
+          path: build/*.zip
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: eon-m365-copilot-${{ needs.build.outputs.version }}
+          path: build
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          set -euo pipefail
+          tag="v$VERSION"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "::notice::Release $tag already exists; the package is attached to this run as an artifact."
+            exit 0
+          fi
+          gh release create "$tag" \
+            "build/eon-m365-copilot-$VERSION.zip" \
+            build/eon-m365-copilot.zip \
+            --target "$GITHUB_SHA" \
+            --title "Eon for Microsoft 365 Copilot $VERSION" \
+            --generate-notes \
+            --latest
