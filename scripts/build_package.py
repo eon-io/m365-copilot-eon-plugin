@@ -59,6 +59,12 @@ def check() -> list[str]:
         elif "ResourceStateUpdate" in handling:
             errors.append(f"{name}: read-only tool declared as ResourceStateUpdate")
 
+    # Without a pinned tool file, Cowork and Researcher load every tool the server exposes, not just these.
+    for connector in manifest.get("agentConnectors", []):
+        pinned = connector["toolSource"]["remoteMcpServer"].get("mcpToolDescription", {}).get("file")
+        if pinned != "mcp-tools.json":
+            errors.append(f"agent connector {connector['id']}: must pin its tools with mcpToolDescription mcp-tools.json")
+
     # Store validation rejects a declarative agent whose names don't match across files.
     app_names = {manifest["name"]["short"], agent["name"], plugin["name_for_human"]}
     if len(app_names) != 1:

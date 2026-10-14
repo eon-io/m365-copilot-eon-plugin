@@ -4,8 +4,8 @@ Connect Microsoft 365 Copilot to Eon. This Microsoft 365 app package connects Co
 
 ## Capabilities
 
-- **Eon agent for Copilot Chat:** a declarative agent with recovery instructions and 24 pinned Eon tools: Microsoft 365 lookup and restore, backup and restore jobs, ransomware and malware findings, approval requests, and on-demand snapshots of cloud resources.
-- **Eon connector for Copilot Cowork:** the Eon MCP server, with every Eon tool available to Cowork's multi-step work.
+- **Eon agent for Copilot Chat:** a declarative agent with recovery instructions and 24 pinned Eon tools: Microsoft 365 lookup and restore, backup and restore jobs, ransomware findings, approval requests, and on-demand snapshots of cloud resources.
+- **Eon connector for Copilot Cowork and Researcher:** the Eon MCP server, with the same 24 pinned Eon tools for Cowork's multi-step work.
 - **Microsoft 365 recovery skill:** a guided workflow from "I lost it" to a verified restore: find the user, site or team, pick the clean recovery point, search the items, confirm the plan, restore, and track the job.
 
 ## Skills
@@ -27,18 +27,18 @@ The Eon agent in Copilot Chat uses these Eon MCP tools. Copilot runs the reads d
 | `list_infected_snapshots`, `list_security_findings` | `restore_microsoft365_user_by_entity` |
 | `get_my_action_approval_request` | `take_snapshot`, `create_action_approval_request` |
 
-Copilot Cowork discovers the Eon MCP server's tools at runtime, so it also sees Eon's other tools, such as backup posture and compliance reports. Every tool runs with the signed-in user's Eon role.
+The Eon connector in Copilot Cowork and Researcher pins the same tools. Every tool runs with the signed-in user's Eon role.
 
 ## Try it
 
 The Eon agent starts with these prompts:
 
-- "Find the email about the Q3 board deck in Dana's backups and restore it"
-- "Restore the Finance folder in Alex's OneDrive from yesterday's backup"
-- "Which of our backups have ransomware or malware findings?"
+- "Which Microsoft 365 users, SharePoint sites and teams does Eon protect, and when were they last backed up?"
+- "Find a deleted email in one of our users' mailbox backups and restore it"
+- "Restore a file on one of our SharePoint sites from last week's backup"
+- "Which of our backups have ransomware findings?"
 - "Show the restore jobs from the last 24 hours and their status"
 - "Did any backup jobs fail this week?"
-- "Take a snapshot of our production database now"
 
 ## Installation
 
