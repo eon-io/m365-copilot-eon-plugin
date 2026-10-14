@@ -5,7 +5,7 @@
   "namespace": "eon",
   "description_for_human": "Search Eon backups and restore Microsoft 365 and cloud data.",
   "description_for_model": "Eon backup and recovery. These tools find Microsoft 365 users, SharePoint sites and teams protected by Eon, search their snapshots for emails and files, restore them, report on backup and restore jobs, list ransomware and malware findings in backups, and take on-demand snapshots of cloud resources.",
-  "legal_info_url": "https://www.eon.io/terms-of-use",
+  "legal_info_url": "https://eon-public-b2b628cc-1d96-4fda-8dae-c3b1ad3ea03b.s3.us-east-1.amazonaws.com/assets/Eon+EULA.pdf",
   "privacy_policy_url": "https://www.eon.io/privacy-policy",
   "functions": [
     {
@@ -201,8 +201,8 @@
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
-          "title": "Restore mail",
-          "body": "Do you want to restore the selected mail from this Eon snapshot into a new folder in the mailbox?"
+          "title": "Restore email",
+          "body": "Eon will restore the selected email messages from this backup snapshot into a new folder in the user's mailbox. Existing mail isn't changed. Do you want to start this restore?"
         },
         "security_info": {
           "data_handling": [
@@ -213,12 +213,12 @@
     },
     {
       "name": "restore_microsoft365_user_drive_by_entity",
-      "description": "Restores selected OneDrive items from a snapshot, overwriting items with the same path.",
+      "description": "Restores selected OneDrive items from a snapshot, into a new folder by default or over the items with the same path.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
-          "title": "Restore OneDrive items",
-          "body": "Do you want to restore the selected OneDrive items from this Eon snapshot? Items with the same path are overwritten."
+          "title": "Restore OneDrive files",
+          "body": "Eon will restore the selected OneDrive files and folders from this backup snapshot, into a new folder or, in overwrite mode, over the current files at the same path. Do you want to start this restore?"
         },
         "security_info": {
           "data_handling": [
@@ -229,12 +229,12 @@
     },
     {
       "name": "restore_microsoft365_share_point_site_by_entity",
-      "description": "Restores selected SharePoint items from a snapshot, overwriting items with the same path.",
+      "description": "Restores selected SharePoint items from a snapshot, into a new folder by default or over the items with the same path.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
-          "title": "Restore SharePoint items",
-          "body": "Do you want to restore the selected SharePoint items from this Eon snapshot? Items with the same path are overwritten."
+          "title": "Restore SharePoint files",
+          "body": "Eon will restore the selected SharePoint files and folders from this backup snapshot, into a new folder or, in overwrite mode, over the current files at the same path. Do you want to start this restore?"
         },
         "security_info": {
           "data_handling": [
@@ -245,12 +245,12 @@
     },
     {
       "name": "restore_microsoft365_team_by_entity",
-      "description": "Restores selected Microsoft Teams data from a snapshot.",
+      "description": "Restores a Microsoft Teams team or one of its channels from a snapshot into new channels of the same team.",
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
-          "title": "Restore Teams data",
-          "body": "Do you want to restore the selected Teams data from this Eon snapshot?"
+          "title": "Restore Microsoft Teams data",
+          "body": "Eon will restore the selected team or channel from this backup snapshot into new channels of the same team. Existing channels aren't changed. Do you want to start this restore?"
         },
         "security_info": {
           "data_handling": [
@@ -265,8 +265,8 @@
       "capabilities": {
         "confirmation": {
           "type": "AdaptiveCard",
-          "title": "Restore user data",
-          "body": "Do you want to restore this user's Microsoft 365 data from this Eon snapshot?"
+          "title": "Restore a user's Microsoft 365 data",
+          "body": "Eon will restore this user's mailbox and OneDrive from this backup snapshot in one job. Mail goes into a new folder, and OneDrive files replace the current files at the same path. Do you want to start this restore?"
         },
         "security_info": {
           "data_handling": [
@@ -282,7 +282,7 @@
         "confirmation": {
           "type": "AdaptiveCard",
           "title": "Take a snapshot",
-          "body": "Do you want Eon to take an on-demand snapshot of this resource now?"
+          "body": "Eon will start an on-demand backup snapshot of this resource now. Do you want to continue?"
         },
         "security_info": {
           "data_handling": [
@@ -298,7 +298,7 @@
         "confirmation": {
           "type": "AdaptiveCard",
           "title": "Send for approval",
-          "body": "Do you want to send this Eon action request to the approvers?"
+          "body": "Eon will submit this restore request to your organization's approvers, or discard it if you chose to. Nothing is restored until an approver accepts it. Do you want to continue?"
         },
         "security_info": {
           "data_handling": [
