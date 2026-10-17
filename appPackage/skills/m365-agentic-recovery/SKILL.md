@@ -24,10 +24,12 @@ Every tool runs with the signed-in person's Eon role.
 1. **Project.** Call `list_projects`. Every other tool takes the `projectId`. With several
    projects, ask which one.
 2. **Tenant.** Call `list_resources` with `includeSaas: true` and pick the Microsoft 365 tenant
-   resource. Its `id` is the resource id for every step below.
-3. **Who or what.** Call `list_saas_entities` on the tenant resource to find the user,
-   SharePoint site or team. Terminated entities are flagged; leave them out unless the request
-   is about a former employee.
+   resource. Its `id` is the resource id for every step below. Without `includeSaas` the tenant
+   is hidden, so a call without it never means there is no Microsoft 365 data.
+3. **Who or what.** Call `list_saas_entities` on the tenant resource, with the name in
+   `filters.search`, to find the user, SharePoint site or team. The entity's `id` is its Eon
+   `saasEntityId` for every step below; never pass its `externalId`, which is the Microsoft ID.
+   Terminated entities are flagged; leave them out unless the request is about a former employee.
 4. **When.** Call `list_saas_entity_snapshots` for that entity. Choose the latest snapshot taken
    before the loss. For ransomware or malware, call `list_infected_snapshots` first and choose
    the latest snapshot with no findings.
