@@ -38,7 +38,7 @@ The Eon agent starts with these prompts:
 - "Restore a file on one of our SharePoint sites from last week's backup"
 - "Which of our backups have ransomware findings?"
 - "Show the restore jobs from the last 24 hours and their status"
-- "Did any backup jobs fail this week?"
+- "Show the backup jobs from the last 7 days and their status"
 
 ## Installation
 

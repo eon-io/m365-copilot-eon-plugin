@@ -37,7 +37,7 @@ Every tool runs with the signed-in person's Eon role.
    - mail: `search_saas_user_mail`
    - OneDrive: `search_saas_user_drive`
    - SharePoint: `search_saas_shared_drive`
-   - Teams: `search_saas_team`
+   - Teams: `search_saas_team` (matches channel names, so pass a channel name as `query`)
 6. **Restore account.** Call `list_restore_accounts` and pick the Microsoft 365 restore account.
 7. **Plan, then confirm.** Show the person, the snapshot date, the items and the destination.
    Mail restores land in a new folder and never overwrite mail; OneDrive and SharePoint restores
