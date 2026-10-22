@@ -20,11 +20,11 @@ The Eon agent in Copilot Chat uses these Eon MCP tools. Copilot runs the reads d
 
 | Reads (no confirmation) | Changes state (Copilot asks first) |
 |---|---|
-| `list_projects`, `list_resources`, `get_resource`, `list_resource_snapshots` | `restore_microsoft365_user_mail_by_entity` |
-| `list_saas_entities`, `list_saas_entity_snapshots` | `restore_microsoft365_user_drive_by_entity` |
-| `search_saas_user_mail`, `search_saas_user_drive`, `search_saas_shared_drive`, `search_saas_team` | `restore_microsoft365_share_point_site_by_entity` |
-| `list_restore_accounts`, `list_backup_jobs`, `list_restore_jobs`, `get_restore_job` | `restore_microsoft365_team_by_entity` |
-| `list_infected_snapshots`, `list_security_findings` | `restore_microsoft365_user_by_entity` |
+| `list_projects`, `list_resources`, `get_resource`, `list_resource_snapshots` | `restore_microsoft365_user_mail` |
+| `list_saas_entities`, `list_saas_entity_snapshots` | `restore_microsoft365_user_drive` |
+| `search_saas_user_mail`, `search_saas_user_drive`, `search_saas_shared_drive`, `search_saas_team` | `restore_microsoft365_share_point_site` |
+| `list_restore_accounts`, `list_backup_jobs`, `list_restore_jobs`, `get_restore_job` | `restore_microsoft365_team` |
+| `list_infected_snapshots`, `list_security_findings` | `restore_microsoft365_user` |
 | `get_my_action_approval_request` | `take_snapshot`, `create_action_approval_request` |
 
 The Eon connector in Copilot Cowork and Researcher pins the same tools. Every tool runs with the signed-in user's Eon role.
@@ -38,7 +38,7 @@ The Eon agent starts with these prompts:
 - "Restore a file on one of our SharePoint sites from last week's backup"
 - "Which of our backups have ransomware findings?"
 - "Show the restore jobs from the last 24 hours and their status"
-- "Did any backup jobs fail this week?"
+- "Show the backup jobs from the last 7 days and their status"
 
 ## Installation
 

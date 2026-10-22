@@ -37,15 +37,15 @@ Every tool runs with the signed-in person's Eon role.
    - mail: `search_saas_user_mail`
    - OneDrive: `search_saas_user_drive`
    - SharePoint: `search_saas_shared_drive`
-   - Teams: `search_saas_team`
+   - Teams: `search_saas_team` (matches channel names, so pass a channel name as `query`)
 6. **Restore account.** Call `list_restore_accounts` and pick the Microsoft 365 restore account.
 7. **Plan, then confirm.** Show the person, the snapshot date, the items and the destination.
    Mail restores land in a new folder and never overwrite mail; OneDrive and SharePoint restores
    overwrite items with the same path. Wait for an explicit go-ahead.
 8. **Restore.** Call the matching tool once:
-   `restore_microsoft365_user_mail_by_entity`, `restore_microsoft365_user_drive_by_entity`,
-   `restore_microsoft365_share_point_site_by_entity`, `restore_microsoft365_team_by_entity`,
-   or `restore_microsoft365_user_by_entity`.
+   `restore_microsoft365_user_mail`, `restore_microsoft365_user_drive`,
+   `restore_microsoft365_share_point_site`, `restore_microsoft365_team`,
+   or `restore_microsoft365_user`.
 9. **Approval.** When the result holds an `actionApprovalRequest` instead of a job, nothing has
    run. Call `create_action_approval_request` with that `requestId`, `action: CONFIRM` and a
    one-line comment, then report it as pending approval. An administrator approves it, and the

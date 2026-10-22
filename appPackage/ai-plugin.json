@@ -196,7 +196,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_user_mail_by_entity",
+      "name": "restore_microsoft365_user_mail",
       "description": "Restores selected messages from a snapshot into a new folder in the user's mailbox.",
       "capabilities": {
         "confirmation": {
@@ -212,7 +212,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_user_drive_by_entity",
+      "name": "restore_microsoft365_user_drive",
       "description": "Restores selected OneDrive items from a snapshot, into a new folder by default or over the items with the same path.",
       "capabilities": {
         "confirmation": {
@@ -228,7 +228,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_share_point_site_by_entity",
+      "name": "restore_microsoft365_share_point_site",
       "description": "Restores selected SharePoint items from a snapshot, into a new folder by default or over the items with the same path.",
       "capabilities": {
         "confirmation": {
@@ -244,7 +244,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_team_by_entity",
+      "name": "restore_microsoft365_team",
       "description": "Restores a Microsoft Teams team or one of its channels from a snapshot into new channels of the same team.",
       "capabilities": {
         "confirmation": {
@@ -260,7 +260,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_user_by_entity",
+      "name": "restore_microsoft365_user",
       "description": "Restores a user's mailbox and OneDrive from a snapshot in one job.",
       "capabilities": {
         "confirmation": {
@@ -333,11 +333,11 @@
         "list_infected_snapshots",
         "list_security_findings",
         "get_my_action_approval_request",
-        "restore_microsoft365_user_mail_by_entity",
-        "restore_microsoft365_user_drive_by_entity",
-        "restore_microsoft365_share_point_site_by_entity",
-        "restore_microsoft365_team_by_entity",
-        "restore_microsoft365_user_by_entity",
+        "restore_microsoft365_user_mail",
+        "restore_microsoft365_user_drive",
+        "restore_microsoft365_share_point_site",
+        "restore_microsoft365_team",
+        "restore_microsoft365_user",
         "take_snapshot",
         "create_action_approval_request"
       ],

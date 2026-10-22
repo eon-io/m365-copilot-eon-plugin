@@ -5245,7 +5245,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_user_mail_by_entity",
+      "name": "restore_microsoft365_user_mail",
       "description": "Description: Restores a selected message of one Microsoft 365 user from an Eon snapshot\nback into that same user's mailbox, addressing the user by its Eon\nsaasEntityId. Messages are always imported as new messages into a\ndestination folder; existing mail is never overwritten.\n\nThe restore runs on compute in the Azure restore subscription linked to\nthe selected Microsoft 365 restore account.\n\nThis operation is asynchronous. It triggers a restore job and returns the\njob ID, which can be used to track the progress of the restore job via\nGet Restore Job.\n",
       "inputSchema": {
         "type": "object",
@@ -5328,7 +5328,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_user_drive_by_entity",
+      "name": "restore_microsoft365_user_drive",
       "description": "Description: Restores selected files and folders of one Microsoft 365 user's OneDrive\nfrom an Eon snapshot back into that same OneDrive, addressing the user by\nits Eon saasEntityId. Items land either at their original path (overwrite\nmode) or under a destination folder.\n\nThe restore runs on compute in the Azure restore subscription linked to\nthe selected Microsoft 365 restore account.\n\nThis operation is asynchronous. It triggers a restore job and returns the\njob ID, which can be used to track the progress of the restore job via\nGet Restore Job.\n",
       "inputSchema": {
         "type": "object",
@@ -5438,7 +5438,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_share_point_site_by_entity",
+      "name": "restore_microsoft365_share_point_site",
       "description": "Description: Restores SharePoint files and folders of one site from an Eon snapshot\nback into the document library they came from, addressing the site by its\nEon saasEntityId - either at their original path (overwrite mode) or under\na destination folder.\n\nThe restore runs on compute in the Azure restore subscription linked to\nthe selected Microsoft 365 restore account.\n\nThis operation is asynchronous. It triggers a restore job and returns the\njob ID, which can be used to track the progress of the restore job via\nGet Restore Job.\n",
       "inputSchema": {
         "type": "object",
@@ -5544,7 +5544,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_team_by_entity",
+      "name": "restore_microsoft365_team",
       "description": "Description: Restores a whole Team, or one of its channels, from an Eon snapshot into\nnew channels of the same Team, addressing the Team by its Eon saasEntityId.\n\nThe restore runs on compute in the Azure restore subscription linked to\nthe selected Microsoft 365 restore account.\n\nThis operation is asynchronous. It triggers a restore job and returns the\njob ID, which can be used to track the progress of the restore job via\nGet Restore Job.\n",
       "inputSchema": {
         "type": "object",
@@ -5646,7 +5646,7 @@
       }
     },
     {
-      "name": "restore_microsoft365_user_by_entity",
+      "name": "restore_microsoft365_user",
       "description": "Description: Restores a Microsoft 365 user's per-app data from an Eon snapshot, back to\nthat same user, addressing the user by its Eon saasEntityId. OneDrive items\nalways overwrite existing destination items; mailbox messages are always\nimported as new messages in a dedicated destination folder, so there is no\ndestination to choose. Include a workload under `workloads` to restore it;\nomit it to skip.\n\nA failure on one workload does not abort the other, and any failed workload\nfails the job.\n\nThe restore runs on compute in the Azure restore subscription linked to\nthe selected Microsoft 365 restore account.\n\nThis operation is asynchronous. It triggers a restore job and returns the\njob ID, which can be used to track the progress of the restore job via\nGet Restore Job.\n",
       "inputSchema": {
         "type": "object",
