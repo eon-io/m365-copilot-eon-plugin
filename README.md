@@ -53,7 +53,7 @@ Requirements:
 
 ## MCP Server
 
-The plugin connects to `https://mcp.eon.io/mcp` over streamable HTTP. Copilot signs each user in to Eon through OAuth with PKCE (Eon login or the customer's own identity provider), so every tool call runs with that user's Eon role. Copilot asks for confirmation before any tool that changes state, such as a restore or a snapshot, and restores protected by multi-party approval wait for an administrator. Backups stay in Eon: Copilot processes tool results only to answer the request in front of it.
+The plugin connects to `https://mcp.eon.io/m365-copilot/v1/mcp` over streamable HTTP, an endpoint that exposes only the tools pinned in `appPackage/mcp-tools.json`. Copilot signs each user in to Eon through OAuth with PKCE (Eon login or the customer's own identity provider), so every tool call runs with that user's Eon role. Copilot asks for confirmation before any tool that changes state, such as a restore or a snapshot, and restores protected by multi-party approval wait for an administrator. Backups stay in Eon: Copilot processes tool results only to answer the request in front of it.
 
 ## Building the package
 
@@ -66,7 +66,7 @@ python3 scripts/build_package.py --oauth-config-id <registration ID>
 
 CI (`.github/workflows/app-package.yml`) runs `--check` and builds the production package on every pull request and every push to `main`, and attaches it to the run. A pull request that changes `appPackage/` must bump `version` in `appPackage/manifest.json`. Each new version that reaches `main` is published as a GitHub release `v<version>` with `eon-m365-copilot-<version>.zip` (for Partner Center) and `eon-m365-copilot.zip`, so `releases/latest/download/eon-m365-copilot.zip` always serves the newest package.
 
-Locally, the package lands in `build/eon-m365-copilot-<version>.zip`. `--check` fails when a state-changing tool lacks a confirmation, when `ai-plugin.json` and `mcp-tools.json` disagree, or when the app name differs across the manifest, the agent and the plugin. Add `--mcp-url https://mcp-testing.eon.io/mcp` with a testing registration ID for a testing build. Bump `version` in `appPackage/manifest.json` for every Partner Center resubmission.
+Locally, the package lands in `build/eon-m365-copilot-<version>.zip`. `--check` fails when a state-changing tool lacks a confirmation, when `ai-plugin.json` and `mcp-tools.json` disagree, or when the app name differs across the manifest, the agent and the plugin. Add `--mcp-url https://mcp-testing.eon.io/m365-copilot/v1/mcp` with a testing registration ID for a testing build. Bump `version` in `appPackage/manifest.json` for every Partner Center resubmission.
 
 ### OAuth client registration
 
