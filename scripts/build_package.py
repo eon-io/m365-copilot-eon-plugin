@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 APP_PACKAGE = ROOT / "appPackage"
 PLACEHOLDER_OAUTH = "${{EON_MCP_OAUTH_CONFIG_ID}}"
 PLACEHOLDER_URL = "${{EON_MCP_URL}}"
-PROD_MCP_URL = "https://mcp.eon.io/mcp"
+PROD_MCP_URL = "https://mcp.eon.io/m365-copilot/v1/mcp"
 
 
 def check() -> list[str]:

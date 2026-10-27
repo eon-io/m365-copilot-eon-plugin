@@ -20,11 +20,11 @@ The Eon agent in Copilot Chat uses these Eon MCP tools. Copilot runs the reads d
 
 | Reads (no confirmation) | Changes state (Copilot asks first) |
 |---|---|
-| `list_projects`, `list_resources`, `get_resource`, `list_resource_snapshots` | `restore_microsoft365_user_mail_by_entity` |
-| `list_saas_entities`, `list_saas_entity_snapshots` | `restore_microsoft365_user_drive_by_entity` |
-| `search_saas_user_mail`, `search_saas_user_drive`, `search_saas_shared_drive`, `search_saas_team` | `restore_microsoft365_share_point_site_by_entity` |
-| `list_restore_accounts`, `list_backup_jobs`, `list_restore_jobs`, `get_restore_job` | `restore_microsoft365_team_by_entity` |
-| `list_infected_snapshots`, `list_security_findings` | `restore_microsoft365_user_by_entity` |
+| `list_projects`, `list_resources`, `get_resource`, `list_resource_snapshots` | `restore_microsoft365_user_mail` |
+| `list_saas_entities`, `list_saas_entity_snapshots` | `restore_microsoft365_user_drive` |
+| `search_saas_user_mail`, `search_saas_user_drive`, `search_saas_shared_drive`, `search_saas_team` | `restore_microsoft365_share_point_site` |
+| `list_restore_accounts`, `list_backup_jobs`, `list_restore_jobs`, `get_restore_job` | `restore_microsoft365_team` |
+| `list_infected_snapshots`, `list_security_findings` | `restore_microsoft365_user` |
 | `get_my_action_approval_request` | `take_snapshot`, `create_action_approval_request` |
 
 The Eon connector in Copilot Cowork and Researcher pins the same tools. Every tool runs with the signed-in user's Eon role.
@@ -38,7 +38,7 @@ The Eon agent starts with these prompts:
 - "Restore a file on one of our SharePoint sites from last week's backup"
 - "Which of our backups have ransomware findings?"
 - "Show the restore jobs from the last 24 hours and their status"
-- "Did any backup jobs fail this week?"
+- "Show the backup jobs from the last 7 days and their status"
 
 ## Installation
 
@@ -53,7 +53,7 @@ Requirements:
 
 ## MCP Server
 
-The plugin connects to `https://mcp.eon.io/mcp` over streamable HTTP. Copilot signs each user in to Eon through OAuth with PKCE (Eon login or the customer's own identity provider), so every tool call runs with that user's Eon role. Copilot asks for confirmation before any tool that changes state, such as a restore or a snapshot, and restores protected by multi-party approval wait for an administrator. Backups stay in Eon: Copilot processes tool results only to answer the request in front of it.
+The plugin connects to `https://mcp.eon.io/m365-copilot/v1/mcp` over streamable HTTP, an endpoint that exposes only the tools pinned in `appPackage/mcp-tools.json`. Copilot signs each user in to Eon through OAuth with PKCE (Eon login or the customer's own identity provider), so every tool call runs with that user's Eon role. Copilot asks for confirmation before any tool that changes state, such as a restore or a snapshot, and restores protected by multi-party approval wait for an administrator. Backups stay in Eon: Copilot processes tool results only to answer the request in front of it.
 
 ## Building the package
 
@@ -66,7 +66,7 @@ python3 scripts/build_package.py --oauth-config-id <registration ID>
 
 CI (`.github/workflows/app-package.yml`) runs `--check` and builds the production package on every pull request and every push to `main`, and attaches it to the run. A pull request that changes `appPackage/` must bump `version` in `appPackage/manifest.json`. Each new version that reaches `main` is published as a GitHub release `v<version>` with `eon-m365-copilot-<version>.zip` (for Partner Center) and `eon-m365-copilot.zip`, so `releases/latest/download/eon-m365-copilot.zip` always serves the newest package.
 
-Locally, the package lands in `build/eon-m365-copilot-<version>.zip`. `--check` fails when a state-changing tool lacks a confirmation, when `ai-plugin.json` and `mcp-tools.json` disagree, or when the app name differs across the manifest, the agent and the plugin. Add `--mcp-url https://mcp-testing.eon.io/mcp` with a testing registration ID for a testing build. Bump `version` in `appPackage/manifest.json` for every Partner Center resubmission.
+Locally, the package lands in `build/eon-m365-copilot-<version>.zip`. `--check` fails when a state-changing tool lacks a confirmation, when `ai-plugin.json` and `mcp-tools.json` disagree, or when the app name differs across the manifest, the agent and the plugin. Add `--mcp-url https://mcp-testing.eon.io/m365-copilot/v1/mcp` with a testing registration ID for a testing build. Bump `version` in `appPackage/manifest.json` for every Partner Center resubmission.
 
 ### OAuth client registration
 

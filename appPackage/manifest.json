@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
   "manifestVersion": "1.29",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "id": "5d5b73c9-755d-4b7c-ab9d-db5b2e540217",
   "developer": {
     "name": "eon-io",
