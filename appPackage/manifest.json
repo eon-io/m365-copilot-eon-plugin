@@ -1,10 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
   "manifestVersion": "1.29",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "id": "5d5b73c9-755d-4b7c-ab9d-db5b2e540217",
   "developer": {
-    "name": "eon-io",
+    "name": "eon.io",
     "websiteUrl": "https://www.eon.io",
     "privacyUrl": "https://www.eon.io/privacy-policy",
     "termsOfUseUrl": "https://eon-public-b2b628cc-1d96-4fda-8dae-c3b1ad3ea03b.s3.us-east-1.amazonaws.com/assets/Eon+EULA.pdf"
